@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% block css %}
+<script type="text/javascript">
+    $(function(){
+        $('.quantity').mask('####0');
+        $('.value').maskMoney({prefix: 'R$ ', allowNegative:false, thousands: '.', decimal: ',', affixesStay: false});
+    });
+
+    function resetForm(){
+        var form_product = document.getElementById('product_list');
+        var confirmation = confirm("This action will discard all fields. Not recoverable!");
+        if(confirmation == true){
+            form_product.reset();
+        }
+    };
+
+    function nodes(recebe){
+        var teste = recebe.parentElement.nodeName;
+        alert(teste);
+        document.getElementById("demo").innerHTML = teste;
+    };
+
+    function sumValuesProducts(){
+        var minha_var = document.getElementById("product_list").getElementsByTagName("tbody")[0].getElementsByTagName("tr");
+        var texto = "";
+        for(i = 0; i < minha_var.length; i++){
+            for(j = 0; j < minha_var[i].childNodes.length; j++){
+                for(k = 0; k < minha_var[i].childNodes[j].childNodes.length; k++){
+                    if(minha_var[i].childNodes[j].childNodes[k].nodeName == "DIV"){
+                        for(l = 0; l < minha_var[i].childNodes[j].childNodes[k].childNodes.length; l++){
+                            texto = texto = minha_var[i].childNodes[j].childNodes[k].childNodes[l].nodeName + "<br>";
+                        }
+                    }
+                }
+                //texto = texto + minha_var[i].childNodes[j].nodeName + "<br>";
+            }
+            texto = texto + "------------<br>";
+        }
+        document.getElementById("demo").innerHTML = texto;
+    };
+</script>
+{% endblock %}
+{% block content %}
+<form action="" method="post" id="product_list">
+    <div class="products">
+        <table class="ui celled table">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Category</th>
+                    <th>Quantity</th>
+                    <th>Value</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <div class="ui input">
+                            <input class="quantity" id="" type="text" maxlength="6" name="quantity">
+                        </div>
+                    </td>
+                    <td>
+                        <div class="ui input">
+                            <input class="value" id="" type="text" maxlength="16" name="value" onkeypress="">
+                        </div>
+                    </td>
+                    <td></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <br>
+    <button type="submit" class="ui primary left floated button">Send</button>
+    <button class="ui right floated button" type="button" onclick="sumValuesProducts()">Discard</button>
+</form>
+
+<br>
+<br>
+<br>
+<div id="demo"></div>
+
+{% endblock %}

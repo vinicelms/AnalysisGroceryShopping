@@ -1,0 +1,9 @@
+<nav class="ui secondary pointing menu">
+    <div style="width: 90%; margin-left: 5%" class="ui top fixed menu">
+        <a class="ui {% if request.endpoint.endswith('home') %}active {% endif %}item" href="{{ url_for('home') }}">Home</a>
+        <a class="ui {% if request.endpoint.endswith('shopping') %}active {% endif %}item" href="{{ url_for('shopping') }}">Shopping</a>
+        <div class="right menu">
+            <a class="ui item">Logout</a>
+        </div>
+    </div>
+</nav>
